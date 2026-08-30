@@ -21,21 +21,20 @@ public class Pratica {
             sc.nextLine();
 
             switch (op) {
-                case 1:
-                    if (qtd < 5) {  
-                            System.out.println("Digite o nome do produto");
-                            produto[qtd] = sc.nextLine();
-                            System.out.println("Digite a quantidade do produto");
-                            quantP[qtd] = sc.nextInt();
-                            sc.nextLine();
-                            qtd++;
-                        
+                case 1: // Cadastrar Produtos
+                    if (qtd < 5) {
+                        System.out.println("Digite o nome do produto");
+                        produto[qtd] = sc.nextLine();
+                        System.out.println("Digite a quantidade do produto");
+                        quantP[qtd] = sc.nextInt();
+                        sc.nextLine();
+                        qtd++;
 
                     } else {
                         System.out.println("Quantidade máxima de produtos cadastrados atingidos");
                     }
                     break;
-                case 2:
+                case 2: // Listar Produtos
                     if (qtd == 0) {
                         System.out.println("Nenhum Produto Cadastrado");
                     } else {
@@ -47,29 +46,31 @@ public class Pratica {
                         }
                         ;
                     }
-                    break;  
-                case 3:
+                    break;
+                case 3:// Localizar Produtos
                     System.out.println("Digite o nome do produto: ");
                     String busca = sc.nextLine();
                     int posBusca = -1;
                     for (int i = 0; i < qtd; i++) {
                         if (produto[i].equalsIgnoreCase(busca)) {
-                        posBusca=1;
-                        break;
+                            posBusca = i;
+                            break;
+                        } // verifica se existe
                     }
-                    }
-                    if(posBusca ==-1){
+                    if (posBusca == -1) {
                         System.out.println("Produto não encontrado");
-                    }else{
-                         System.out.println("Produto Encontrado: " +
-                                    "| Nome: " + produto[posBusca] +
-                                    "| Quantidade: " + quantP[posBusca]);
-                                    
-                    }
+                    } else {
+                        System.out.println("Produto Encontrado: " +
+                                "| Nome: " + produto[posBusca] +
+                                "| Quantidade: " + quantP[posBusca]);
+
+                    } // se existir ele entrega
                     break;
-                case 4:
+                case 4: // alterar um produto
                     System.out.println("Digite o nome do produto: ");
                     String buscaAlt = sc.nextLine();
+                    int posAlt = -1; // para verficar se existe
+
                     for (int i = 0; i < qtd; i++) {
 
                         if (produto[i].equalsIgnoreCase(buscaAlt)) {
@@ -77,15 +78,20 @@ public class Pratica {
                             produto[i] = sc.nextLine();
                             System.out.println("Digite a quantidade: ");
                             quantP[i] = sc.nextInt();
-                        } else {
-                            System.out.println("Não Encontrado!");
+                            sc.nextLine();
+                            posAlt = i; // se existir altera o valor
+
+                            break;
                         }
                     }
-
+                    if (posAlt == -1) {
+                        System.out.println("Produto não encontrado!");
+                    } // se não existir ele mostra essa mensagem.
                     break;
-                case 5:
+                case 5:// remover um produto
                     System.out.println("Digite o nome do produto: ");
                     String buscaDel = sc.nextLine();
+                    boolean posDel = false; // verificador se o produto existe
                     for (int i = 0; i < qtd; i++) {
 
                         if (produto[i].equalsIgnoreCase(buscaDel)) {
@@ -100,9 +106,12 @@ public class Pratica {
                             quantP[qtd - 1] = 0;
 
                             qtd--;
+                            posDel = true;
+                            break;
 
-                        } else {
-                            System.out.println("Não Encontrado!");
+                        }
+                        if (!posDel) {
+                            System.out.println("Produto não encontrado!");
                         }
                     }
 
