@@ -1,17 +1,19 @@
 package atividade;
 
-public class Conta extends Agencia {
+public class Conta {
     private int numeroConta;
     private String titular;
     private double saldo;
-
+    private Agencia agencia;
     
 
-    public Conta(String nomeAgencia, int numeroAgencia, int numeroConta, String titular, double saldo) {
-        super(nomeAgencia, numeroAgencia);
+   
+
+    public Conta(int numeroConta, String titular, double saldo, Agencia agencia) {
         this.numeroConta = numeroConta;
         this.titular = titular;
         this.saldo = saldo;
+        this.agencia = agencia;
     }
 
     public int getNumeroConta() {
@@ -45,17 +47,17 @@ public class Conta extends Agencia {
 
         }
         this.saldo += valor;
-        System.out.println("Depósito de R$"+valor+" realizado com sucesso.\nSaldo atual R$"+saldo);
+        System.out.printf("Depósito de R$ %.2f realizado com sucesso.\nSaldo atual R$ %.2f",valor, saldo);
     }
 
-    public void consultarSaldo(String saldo){
+    public void consultarSaldo(){
         System.out.printf("Saldo atual: R$ %.2f\n", this.saldo);
     }
 
-    @Override 
-    public String mostrarDados() {
+     
+    public void mostrarDados() {
         System.out.println("\n=== DADOS DA CONTA ===");
-        System.out.println(Agencia.mostraDados());
+        System.out.println(agencia.mostraDados());
         System.out.println("Número da Conta: " + numeroConta);
         System.out.println("Titular: " + titular);
         System.out.printf("Saldo: R$ %.2f\n", saldo);
