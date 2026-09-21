@@ -6,11 +6,10 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int op;
-        String cpf = "";
-        String nome = "";
-        double salario = 0;
-        double bonus = 0;
+        String cpf = "", nome = "", tipoContrato = "";
+        double salario = 0, bonus = 0;
         Funcionario funcionario = null;
+        
 
         while (true) {
             System.err.println("=======SISTEMA DE FUNCIONÁRIO========" +
@@ -41,14 +40,18 @@ public class Main {
 
                     if (tipo == 1) {
 
-                        Funcionario funcionarioCLT = new FuncionarioCLT(nome, cpf, salario, 0);
+                        funcionario = new FuncionarioCLT(nome, cpf, salario, 0);tipoContrato = "CLT";
                         System.out.println("Cadastrado com sucesso!");
+                        
                     } else if (tipo == 2) {
                         System.out.println("Digite a quantidade de horas trabalhadas: ");
                         int horas = sc.nextInt();
                         sc.nextLine();
-                        Funcionario funcionarioFreelancer = new FuncionarioFreelancer(nome, cpf, salario, horas);
+                        tipoContrato = "Freelancer";
+                        funcionario = new FuncionarioFreelancer(nome, cpf, salario, horas);
                         System.out.println("Cadastrado com sucesso!");
+                    }else{
+                        System.out.println("Opção inválida");
                     }
                     break;
 
@@ -57,6 +60,7 @@ public class Main {
                         System.err.println("=====DADOS DO FUNCIONÁRIO===" +
                                 "\nNome: " + funcionario.getNome() +
                                 "\nCpf: " + funcionario.getCpf() +
+                                "\nContrato: "+tipoContrato+
                                 "\nSalário Base/Valor da hora: " + funcionario.getSalario());
 
                     } else {
@@ -89,26 +93,31 @@ public class Main {
                     break;
                 case 6:
                     if (funcionario != null) {
-                        System.out.println("\n=== CONSULTA DE DADOS DO FUNCIONÁRIO ===");
-                        System.out.println("Nome: " + funcionario.getNome());
-                        System.out.println("CPF: " + funcionario.getCpf());
-                        System.out.println("Salário Base / Valor por Hora: R$ " + funcionario.getSalario());
+                        System.err.println("=====DADOS DO FUNCIONÁRIO===" +
+                                "\nNome: " + funcionario.getNome() +
+                                "\nCpf: " + funcionario.getCpf() +
+                                "\nContrato: "+tipoContrato+
+                                "\nSalário Base/Valor da hora: " + funcionario.getSalario());
 
                         Pagamento p = (Pagamento) funcionario;
-                        System.out.println("Pagamento Base Atual: R$ " + p.calcPagamento());
+                        System.out.println("Pagamento Base Atual: R$ " + p.calcPagamento()+
+                                            "\nPagamento com os bonus: "+p.calcPagamento(bonus));
+
                     } else {
                         System.out.println("Nenhum funcionário cadastrado!");
                     }
                     break;
-                case 7:
+                case 0:
                     System.out.println("Sistema encerrado!");
+                    sc.close();
                     return;
                 default:
                     System.out.println("Opção inválida!");
+                    
                     break;
             }
 
-            sc.close();
+            
         }
 
     }
